@@ -30,6 +30,7 @@ from schemas import (
     TokenRefreshRequestSchema,
     TokenRefreshResponseSchema
 )
+
 from security.interfaces import JWTAuthManagerInterface
 
 router = APIRouter()
@@ -102,7 +103,7 @@ async def activate_user(
         )
 
     result = await db.execute(select(ActivationTokenModel).where(
-        ActivationTokenModel.user == user,
+        ActivationTokenModel.user_id == user.id,
         ActivationTokenModel.token == data.token
     )
     )
